@@ -1,4 +1,4 @@
-FROM loeken/enso-template-base
+FROM loeken/enso-template-base:3.18
 
 # install nodejs/npm/pnpm
 RUN apk add --no-cache nodejs npm
