@@ -1,0 +1,17 @@
+# First stage: Generate Nuxt app
+FROM loeken/enso-template-base-dev:3.18 as base
+
+
+# Install necessary tools and dependencies
+RUN sudo apk add --no-cache nodejs npm
+
+COPY package.* .
+RUN sudo npm install -g pnpm 
+RUN pnpm install --shamefully-hoist 
+COPY . .
+# install gopls for development / dlv for debug
+
+RUN sudo chown -R vscode:vscode /app
+RUN git config --global --add safe.directory /app
+
+CMD ["tail", "-f", "/dev/null"]
