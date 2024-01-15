@@ -1,5 +1,5 @@
 # First stage: Generate Nuxt app
-FROM node:18.17.0-alpine3.18
+FROM node:18.18-alpine3.18
 
 # Install necessary tools and dependencies
 RUN apk add --no-cache git curl bash gpg sudo openssh zsh apk-tools-zsh-completion nodejs npm
@@ -25,12 +25,10 @@ SHELL ["/bin/zsh", "-c"]
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 ## app specific
-
-RUN sudo npm install -g pnpm 
+RUN sudo npm install -g yarn 
 COPY package.* .
-RUN pnpm install --shamefully-hoist 
+RUN yarn install
 COPY . .
-# install gopls for development / dlv for debug
 
 RUN sudo chown -R vscode:vscode /app
 RUN git config --global --add safe.directory /app
